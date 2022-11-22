@@ -1,4 +1,35 @@
 <style> 
+    /* Split the screen in half */
+    .split {
+    height: 100%;
+    width: 50%;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    overflow-x: hidden;
+    padding-top: 20px;
+    }
+
+    /* Control the left side */
+    .left {
+    left: 0;
+    background-color: rgb(232, 235, 174);
+    }
+
+    /* Control the right side */
+    .right {
+    right: 0;
+    background-color: rgb(139, 199, 210);
+    }
+
+    .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    }
+
     .header {
     overflow: hidden;
     background-color: #f1f1f1;
@@ -29,6 +60,7 @@
     color: black;
     }
 
+    /* Style the buttons */
     .button {
     background-color: white; 
     border: none;
@@ -44,20 +76,65 @@
     border: 2px solid #636363
     }
 
+    /* change button when mouse hocered over */
     .button:hover {
     background-color: #d8d8d8;
     color: white;
     }
+    
+    /* style a text box */
+    textarea {
+    width: 35%;
+    height: 50;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #636363;
+    border-radius: 4px;
+    background-color: white;
+    font-size: 16px;
+      resize: none;
+    }
 
 </style>
+
+<div class="split left">
 
 <div class="header">
   <a href="/" class="logo">Poetry Generator</a>
   <div class="header-right">
-    <a class="active" href="/">Home</a>
-    <a href="/poems">Recorded Poems</a>
   </div>
 </div>
 
+  <form action = '/add_word' method="POST">
+    <button class='button' name="word" type="word"> New AI Word </button>
+  </form>
 
-<button class='button'> Hi </button>
+  <form action = '/add_word_manually' method="POST"> 
+    <button class="button" name="submit">Add Manual Word</button>
+    <br>
+    <br>
+    <textarea name="manual_word" placeholder = 'Manual Text'></textarea>
+  </form>
+
+  <form action = '/new_line' method="POST">
+    <button class='button' name="new_line" type="new_line"> New Line </button>
+  </form>
+<div>
+
+<div class="split right">
+  <div class="header">
+    <a href="/save_poem" class="logo">Save Poem</a>
+        <a href="/poems">Recorded Poems</a>
+
+  </div>
+
+  {% for word in current_poem %}
+    {% if word == "\n" %}
+      <p>{{word}}</p>
+    {% endif %}
+    
+    {% if word != "\n" %}
+      {{word}}
+    {% endif %}
+  {% endfor %}
+</div>
