@@ -1,4 +1,4 @@
-# poetry_generator
+# AI Poetry Generator App by Finn Bergquist
 
 ### Description
 
