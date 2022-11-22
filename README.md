@@ -1,6 +1,6 @@
 # poetry_generator
 
-### Description
+# Description
 
 This intelligent poetry generator uses a five layer recurrent neural network,
 trained on over 17,000 lines of poetry from a large assortment of famous poets.
@@ -19,10 +19,12 @@ The network is trained, loaded, and queried from the poetry_agent class which
 is implemented in the Flask app backend. The frontend is written in html/css,
 sending backend calls for each different functionality of the app(ex. store the
 poetry information, evaluate saved poems, speak poems, ask for a new AI word,
-etc.)
+etc.) The saved poetry can be viewed in the Recorded Poems tab, where they can be
+audibly read aloud. 
 
-The saved poetry can be viewed in the Recorded Poems tab, where they can be
-audibly read aloud. Additionally, this is where the evaluative RMSE
+# Evaluation
+
+Additionally, in the recorded poems page, the evaluative RMSE
 (root mean squared error) metric can be seen. The purpose of this metric is to
 show how far the generated poetry deviates from the deterministic policy of
 the neural network. If the highest rated output word was always chosen, the
@@ -47,19 +49,45 @@ corresponding to:
 With added noise, the system might still select the word "fun", and then this
 words contribution to the RMSE would be
 
-```
-(y'-y)^2 = (0.546 - 0.456)^2
-```
+<img width="554" alt="Screen Shot 2022-11-22 at 1 34 52 PM" src="https://user-images.githubusercontent.com/61434761/203394281-8d053952-c046-41a3-8c38-a4fd43161576.png">
+
+This would be one of the additive terms in the total root mean squared error:
+
+<img width="330" alt="Screen Shot 2022-11-22 at 1 33 23 PM" src="https://user-images.githubusercontent.com/61434761/203393943-3598b626-73da-4ce5-8661-27ac6712e42d.png">
 
 where y = the selected word and y'= the argmax word
 
-### How to Run the Program
+Ultimately, a high RMSE score reflects a poem that selected words further from the argmax. These types
+of poems are more novel but generally not as novel. Low RMSE scores reflect poems that took fewer
+risks and stuck to the highest weighted word suggestions.
 
-### Challenges
+# How to Run the Program
 
-### Inspirations
+Install Dependencies
 
-## Does human–AI collaboration lead to more creative art? Aesthetic evaluation of human-made and AI-generated haiku poetry by Jimpei Hitsuwaria, Yoshiyuki Ueda, Woojin Yuna, and Michio Nomuraa
+* numpy
+* keras
+* tensorflow
+* sklearn
+* flask
+
+For each of these, run:
+
+```
+pip install dependency_name
+```
+
+Start a local server running the app:
+```
+flask run
+```
+This will start a local development server with a link in the terminal where the web app can be accessed
+
+# Challenges
+
+# Inspirations
+
+### Does human–AI collaboration lead to more creative art? Aesthetic evaluation of human-made and AI-generated haiku poetry by Jimpei Hitsuwaria, Yoshiyuki Ueda, Woojin Yuna, and Michio Nomuraa
 
 https://www.sciencedirect.com/science/article/pii/S0747563222003223
 
@@ -72,7 +100,7 @@ a button and text box to allow the user to add their own poetic choices to the
 AI generated poems. I believe the concept of human-AI collaboration holds enormous
 potential which is not just limited to art.
 
-## Poet: Automatic Poetry Composition through Recurrent Neural Networks with Iterative Polishing Schema by Rui Yan, Department of Computer Science, Peking University
+### Poet: Automatic Poetry Composition through Recurrent Neural Networks with Iterative Polishing Schema by Rui Yan, Department of Computer Science, Peking University
 
 https://dl.acm.org/doi/10.5555/3060832.3060934
 
@@ -89,7 +117,7 @@ has very accurate probablistic predictions. Usually, lower perplexity is
 associated with better AI poetry; however, it could also represent a lack of
 creative risk taking by the inteligent agent. The application of entropy based
 calculations inspired me to use categorical cross-entropy as the loss function
-for my neural netweork's back propogation.
+for my neural netweork's back propogation. 
 
 Additionally, this article also made me think about creating a way to evaluate
 how well my system's predictions are relative to the probabilities that it
@@ -99,9 +127,11 @@ deterministic. I wanted to observe how the RMSE between the deterministic word
 and the predicted word with noise differed as more noise was added. I predicted
 that there would be a sweet spot where the system would avoid repeating exact
 phrases from the training data while also create coherent word combinations.
-RMSE calculation can be observed in the Saved Poem page.
+RMSE calculation can be observed in the Saved Poem page. This strategy was
+a simpler way to calculatea metric that covers the general idea of the perplexity
+calculation.
 
-## Human Competence in Creativity Evaluation by Carolyn Lamb, Daniel G. Brown, Charles L.A. Clarke
+### Human Competence in Creativity Evaluation by Carolyn Lamb, Daniel G. Brown, Charles L.A. Clarke
 
 https://axon.cs.byu.edu/ICCC2015proceedings/5.2Lamb.pdf
 
