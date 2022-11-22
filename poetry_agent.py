@@ -1,12 +1,10 @@
 '''
 Author: Finn Bergquist
-
 This module impelements the training, loading, and querying of a recurrent
 neural network for poetry generation.
 '''
 from typing import Sequence
 import numpy as np
-import pandas as pd
 from keras_preprocessing.text import Tokenizer
 from keras_preprocessing.sequence import pad_sequences
 from keras.utils import to_categorical

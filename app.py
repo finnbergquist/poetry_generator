@@ -46,7 +46,7 @@ def add_word():
     agent with a seed text of a blank string. This renders an approximately even
     probability distribution, selecting words proportionally to how often they
     occur, regardless of the context. Finally, it adds to new word to the global
-    current_poemn list.'''
+    current_poem list.'''
     global current_poem
     global current_poem_errors
 
