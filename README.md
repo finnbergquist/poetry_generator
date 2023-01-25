@@ -55,7 +55,48 @@ where y = the selected word and y'= the argmax word
 
 ### How to Run the Program
 
-### Challenges
+### Install Dependencies
+
+* numpy
+* keras
+* tensorflow
+* sklearn
+* flask
+
+For each of these, run:
+```
+pip install dependency_name
+```
+
+### Start a local server running the app:
+```
+flask run
+```
+This will start a local development server with a link in the terminal where the web app can be accessed
+
+### Re-training the Model:
+
+Adjust the hyperparameters in the poetry_agent __init__() method however you like and run
+```
+pip train.py
+```
+
+
+# Challenges
+
+Working on this system challenged my ability to create a machine learning agent that functions within a web app tech stack. 
+I found that the best way to do this is to pre-train the model, and load up the pre-trained model information when launching
+the web app. I have very little experience building a front-end as well. While this front-end is nothing too fancy, it 
+accomplishes exactly what I wanted. I am happy with the user interactive elements implemented in the UI which allow the user
+to add their own words, save the poems, and go back to look at the saved poems.
+
+A challenge that I did not have quite as much success with was finding a way to ensure that the AI would suggest coherent 
+words without repeating itself too much. I spent a lot of time tuning the hyperparameters but never achieved an optimal balance.
+
+A final challenge that I tackled in this project was adding elements of randomness to the deterministic nature of the pre-trained
+poetry agent. In the end, I found a good way to do this was sorting the words based on their outputs from the neural network and
+randomly selecting a word from the top 10. This avoided a problem I had where the system would generate cycles of words resulting
+in lots of repeated phrases.
 
 ### Inspirations
 
